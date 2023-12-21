@@ -41,15 +41,15 @@ export interface IFilter extends IObjectKeys {
   size?: number;
 }
 
-const filterWords = async (language: string, filter: IFilter, initialWord: string | undefined) => {
+const filterWords = async (language: string | undefined, filter: IFilter, lastWord: string | undefined) => {
   const normalizedFilter = normalizeObject(filter);
-  const normalizedInitialWord = normalizeString(initialWord || "");
+  const normalizedLastWord = normalizeString(lastWord || "");
   const { letters, absentLetters, startsWith, endsWith, pattern, size } =
     normalizedFilter;
   const filteredWords: string[] = [];
   const absentLettersSet = absentLetters ? new Set(absentLetters) : undefined;
   let lettersSet: Record<string, number> | undefined;
-  let skip = initialWord ? true : false;
+  let skip = lastWord ? true : false;
 
   // Creating counter for letters
   if (letters) {
@@ -62,7 +62,7 @@ const filterWords = async (language: string, filter: IFilter, initialWord: strin
   try {
     // Open and read file
     const wordsFolderPath = path.join(__dirname, "../data/words/");
-    const filePath = wordsFolderPath + WORDS_PATH[language];
+    const filePath = wordsFolderPath + WORDS_PATH[language ?? "ENGLISH"];
     const readStream = fs.createReadStream(filePath, { encoding: "utf8" });
     const rl = readline.createInterface({
       input: readStream,
@@ -70,16 +70,16 @@ const filterWords = async (language: string, filter: IFilter, initialWord: strin
 
     // Filter words
     for await (const l of rl) {
-      if (l === normalizedInitialWord) skip = false;
+      if (l === normalizedLastWord) skip = false;
       if (skip) continue;
       
       const line = normalizeString(l);
       if (filteredWords.length === 100) break;
-      if (size && line.length !== size) continue;
+      if (size && line.length !== +size) continue;
       if (startsWith && !line.startsWith(startsWith)) continue;
       if (endsWith && !line.endsWith(endsWith)) continue;
       if (absentLettersSet && !absentLetterFilter(line, absentLettersSet)) continue;
-      if (lettersSet && lettersFilter(line, lettersSet)) continue;
+      if (lettersSet && !lettersFilter(line, lettersSet)) continue;
 
       if (pattern) {
         const patternRegex = new RegExp(pattern);
