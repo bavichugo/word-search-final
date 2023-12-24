@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 
 interface AppContextType {
+  words: string[];
   setLanguage: (language: string) => void;
   setLetters: (letters: string) => void;
   setAbsentLetters: (absetLetters: string) => void;
@@ -12,6 +13,7 @@ interface AppContextType {
 }
 
 const AppContext = createContext<AppContextType>({
+  words: [],
   setLanguage: () => {},
   setLetters: () => {},
   setAbsentLetters: () => {},
@@ -72,6 +74,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <AppContext.Provider
       value={{
+        words,
         setLanguage,
         setLetters,
         setAbsentLetters,
