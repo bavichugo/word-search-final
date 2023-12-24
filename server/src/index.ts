@@ -4,7 +4,7 @@ import filterRouter from "./routes/filterRoutes";
 import cors from "cors";
 
 const options: cors.CorsOptions = {
-  origin: process.env.FRONTEND || "http://localhost:5173/",
+  origin: "http://localhost:5173",
   methods: 'GET',
 };
 

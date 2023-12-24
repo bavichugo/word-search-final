@@ -32,7 +32,7 @@ interface IObjectKeys {
   [key: string]: string | number | undefined;
 }
 
-export interface IFilter extends IObjectKeys {
+interface IFilter extends IObjectKeys {
   letters?: string;
   absentLetters?: string;
   startsWith?: string;
