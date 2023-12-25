@@ -1,10 +1,12 @@
 import { FormEvent } from "react";
 import { WordContext } from "../context/WordContext";
 import useFilter from "../hooks/useFilter";
+import { useTranslation } from "react-i18next";
 
 const WordFilter = () => {
   const { fetchWords, resetFilter, words } = WordContext();
   const filterState = useFilter();
+  const { t } = useTranslation();
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,40 +28,40 @@ const WordFilter = () => {
           <FormInput
             value={filterState.letters}
             onChange={filterState.setLetters}
-            placeholder="Letters..."
+            placeholder={t("letters_filter")}
           />
           <FormInput
             value={filterState.absentLetters}
             onChange={filterState.setAbsentLetters}
-            placeholder="Absent Letters..."
+            placeholder={t("absent_letters_filter")}
           />
           <FormInput
             value={filterState.startsWith}
             onChange={filterState.setStartsWith}
-            placeholder="Starts With..."
+            placeholder={t("starts_with_filter")}
           />
           <FormInput
             value={filterState.endsWith}
             onChange={filterState.setEndsWith}
-            placeholder="Ends With..."
+            placeholder={t("ends_with_filter")}
           />
           <FormInput
             value={filterState.pattern}
             onChange={filterState.setPattern}
-            placeholder="Pattern..."
+            placeholder={t("pattern_filter")}
           />
           <FormInput
             value={filterState.size}
             onChange={filterState.setSize}
             type="number"
-            placeholder="Size..."
+            placeholder={t("size_filter")}
           />
         </div>
         <button
           className="bg-[#29C9E8] hover:bg-[#29c8e8c6] w-full max-w-60 rounded-2xl py-3 text-[#111827]"
           type="submit"
         >
-          Search!
+          {t("search_filter")}
         </button>
       </form>
       {!!words.length && (
@@ -67,7 +69,7 @@ const WordFilter = () => {
           onClick={onResetHandler}
           className="bg-[#29C9E8] hover:bg-[#29c8e8c6] text-[#111827] w-fit rounded-full px-6 py-1"
         >
-          Reset
+          {t("reset_filter")}
         </button>
       )}
     </div>

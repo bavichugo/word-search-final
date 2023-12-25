@@ -1,5 +1,12 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IFilter } from "../hooks/useFilter";
+import { useTranslation } from "react-i18next";
 
 interface AppContextType {
   words: string[];
@@ -12,7 +19,7 @@ const AppContext = createContext<AppContextType>({
   words: [],
   setLanguage: () => {},
   fetchWords: () => {},
-  resetFilter: () => {}
+  resetFilter: () => {},
 });
 
 export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -20,6 +27,15 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [language, setLanguage] = useState<string>("ENGLISH");
   const [words, setWords] = useState<string[]>([]);
+  const { i18n } = useTranslation();
+  
+  useEffect(() => {
+    if (language === "PORTUGUESE") {
+      i18n.changeLanguage("pt");
+    } else {
+      i18n.changeLanguage("en");
+    }
+  }, [language]);
 
   const fetchWords = async (filterObj: IFilter) => {
     try {
@@ -49,7 +65,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
 
   const resetFilter = () => {
     setWords([]);
-  }
+  };
 
   return (
     <AppContext.Provider
@@ -57,7 +73,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
         words,
         setLanguage,
         fetchWords,
-        resetFilter
+        resetFilter,
       }}
     >
       {children}

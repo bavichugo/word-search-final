@@ -1,0 +1,14 @@
+{
+  "website_name": "Word Search 💬",
+  "language": "Language",
+  "tips": "Tips",
+  "use_the_filters": "Use the filters to find your words!",
+  "letters_filter": "Letters...",
+  "absent_letters_filter": "Absent Letters...",
+  "starts_with_filter": "Starts With...",
+  "ends_with_filter": "Ends With...",
+  "pattern_filter": "Pattern...",
+  "size_filter": "Size...",
+  "search_filter": "Search!",
+  "reset_filter": "Reset"
+}

@@ -1,0 +1,14 @@
+{
+  "website_name": "Busca Palavra 💬",
+  "language": "Linguagem",
+  "tips": "Dicas",
+  "use_the_filters": "Use os filtros para achar suas palavras!",
+  "letters_filter": "Letras...",
+  "absent_letters_filter": "Letras Ausentes...",
+  "starts_with_filter": "Começa Com...",
+  "ends_with_filter": "Termina Com...",
+  "pattern_filter": "Padrão...",
+  "size_filter": "Tamanho...",
+  "search_filter": "Buscar!",
+  "reset_filter": "Resetar"
+}
