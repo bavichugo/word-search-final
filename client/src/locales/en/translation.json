@@ -10,5 +10,6 @@
   "pattern_filter": "Pattern...",
   "size_filter": "Size...",
   "search_filter": "Search!",
-  "reset_filter": "Reset"
+  "reset_filter": "Reset",
+  "tooltip_close": "🟡 turn tips off in the top menu"
 }

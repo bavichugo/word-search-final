@@ -5,8 +5,7 @@ import { WordContext } from "../context/WordContext";
 import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
-  const [isToggled, setIsToggled] = useState(false);
-  const { setLanguage } = WordContext();
+  const { setLanguage, isTipsOn, setIsTipsOn } = WordContext();
   const { t } = useTranslation();
 
   const selectOptions = [
@@ -15,7 +14,7 @@ const NavBar = () => {
   ];
 
   const handleToggle = (value: boolean) => {
-    setIsToggled(value);
+    setIsTipsOn(value);
   };
 
   const handleSelect = (selectedValue: string) => {
@@ -28,7 +27,7 @@ const NavBar = () => {
       <div className="flex gap-2 sm:gap-4">
         <div className="flex gap-2 sm:gap-4 items-center">
           <span>{t('tips')}</span>
-          <Toggle onToggle={handleToggle} initialState={isToggled} />
+          <Toggle onToggle={handleToggle} initialState={isTipsOn} />
         </div>
         <div className="flex gap-2 sm:gap-4 items-center">
           <span>{t('language')}</span>

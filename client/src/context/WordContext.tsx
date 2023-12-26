@@ -13,6 +13,8 @@ interface AppContextType {
   setLanguage: (language: string) => void;
   fetchWords: (filterObj: IFilter) => void;
   resetFilter: () => void;
+  isTipsOn: boolean;
+  setIsTipsOn: (value: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType>({
@@ -20,6 +22,8 @@ const AppContext = createContext<AppContextType>({
   setLanguage: () => {},
   fetchWords: () => {},
   resetFilter: () => {},
+  isTipsOn: true,
+  setIsTipsOn: () => {}
 });
 
 export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -27,6 +31,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [language, setLanguage] = useState<string>("ENGLISH");
   const [words, setWords] = useState<string[]>([]);
+  const [isTipsOn, setIsTipsOn] = useState<boolean>(true);
   const { i18n } = useTranslation();
   
   useEffect(() => {
@@ -74,6 +79,8 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
         setLanguage,
         fetchWords,
         resetFilter,
+        isTipsOn,
+        setIsTipsOn
       }}
     >
       {children}

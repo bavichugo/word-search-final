@@ -10,5 +10,6 @@
   "pattern_filter": "Padrão...",
   "size_filter": "Tamanho...",
   "search_filter": "Buscar!",
-  "reset_filter": "Resetar"
+  "reset_filter": "Resetar",
+  "tooltip_close": "🟡 desligue as dicas no menu superior"
 }
