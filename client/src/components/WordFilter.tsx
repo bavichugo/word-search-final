@@ -143,28 +143,28 @@ const FormInput: React.FC<InputProps> = ({
         >
           <div className="flex flex-col">
             <div className="flex justify-between w-full px-2 py-1 border-b-2">
-              <span className="text-black">{tooltipType}</span>
+              <span className="text-black">{t(TOOLTIP_CONTENT[tooltipType].title)}</span>
               <button
                 className="text-black bg-[#EF4444] hover:bg-[#d54242] rounded px-2"
                 onClick={() => toggleTooltip(null)}
                 type="button"
               >
-                Close
+                {t('close_tooltip')}
               </button>
             </div>
             <div className="flex flex-col gap-2 my-2">
-              {TOOLTIP_CONTENT[tooltipType].map((item) => {
+              {TOOLTIP_CONTENT[tooltipType].messages.map((item) => {
                 if (item.type === "ul") {
                   return (
                     <ul className="list-disc list-inside border-[#29C9E8] border-t-2 border-b-2 w-full">
                       {item.items?.map((text) => (
-                        <li className="px-2 text-black m-auto">{text}</li>
+                        <li className="px-2 text-black m-auto">{t(text)}</li>
                       ))}
                     </ul>
                   );
                 }
                 // type "span" or any other
-                return <span className="text-black text-center">{item.content}</span>;
+                return <span className="text-black text-center">{t(item.content!)}</span>;
               })}
             </div>
             <div className="flex justify-between w-full px-2 py-1">

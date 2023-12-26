@@ -1,71 +1,89 @@
 export const TOOLTIP_CONTENT = {
-  ["Letters"]: [
-    {
-      type: "span",
-      content: "Find words containing specified letters",
-    },
-    {
-      type: "ul",
-      items: ["bac → cab, cabinet"],
-    },
-    {
-      type: "span",
-      content:
-        "Duplicate letters in the filter search for words with that letter repeated",
-    },
-    {
-      type: "ul",
-      items: ["dd → ridden, faded", "aaa → banana, alaska"],
-    },
-  ],
-  ["Absent Letters"]: [
-    {
-      type: "span",
-      content: "Find words that do not containing specified letters",
-    },
-    {
-      type: "ul",
-      items: ["a → hello, girl", "egh → word, floor"],
-    },
-  ],
-  ["Starts With"]: [
-    {
-      type: "span",
-      content: "Find words that start with specified letters",
-    },
-    {
-      type: "ul",
-      items: ["a → after, ant", "he → hello, head"],
-    },
-  ],
-  ["Ends With"]: [
-    {
-      type: "span",
-      content: "Find words that end with specified letters",
-    },
-    {
-      type: "ul",
-      items: ["e → phone, bone", "ia → california, cafeteria"],
-    },
-  ],
-  ["Pattern"]: [
-    {
-      type: "span",
-      content: 'Find words using a "dot" pattern',
-    },
-    {
-      type: "ul",
-      items: [".e.lo → hello, jello", "s..ay → spray, stray"],
-    },
-  ],
-  ["Size"]: [
-    {
-      type: "span",
-      content: "Find words that have a specific size",
-    },
-    {
-      type: "ul",
-      items: ["4 → acre, main", "6 → manner, dagger"],
-    },
-  ],
+  ["Letters"]: {
+    title: "letters_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: "letters_tooltip_description_1",
+      },
+      {
+        type: "ul",
+        items: ["letters_tooltip_content_1"],
+      },
+      {
+        type: "span",
+        content:
+          "letters_tooltip_description_2",
+      },
+      {
+        type: "ul",
+        items: ["letters_tooltip_content_2", "letters_tooltip_content_3"],
+      },
+    ],
+  },
+  ["Absent Letters"]: {
+    title: "absent_letters_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: "absent_letters_tooltip_description",
+      },
+      {
+        type: "ul",
+        items: ["absent_letters_tooltip_content_1", "absent_letters_tooltip_content_2"],
+      },
+    ],
+  },
+  ["Starts With"]: {
+    title: "starts_with_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: "starts_with_tooltip_description",
+      },
+      {
+        type: "ul",
+        items: ["starts_with_tooltip_content_1", "starts_with_tooltip_content_2"],
+      },
+    ],
+  },
+  ["Ends With"]: {
+    title: "ends_with_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: "ends_with_tooltip_description",
+      },
+      {
+        type: "ul",
+        items: ["ends_with_tooltip_content_1", "ends_with_tooltip_content_2"],
+      },
+    ],
+  },
+  ["Pattern"]: {
+    title: "pattern_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: 'pattern_tooltip_description',
+      },
+      {
+        type: "ul",
+        items: ["pattern_tooltip_content_1", "pattern_tooltip_content_2"],
+      },
+    ],
+  },
+  ["Size"]: {
+    title: "size_tooltip",
+    messages: [
+      {
+        type: "span",
+        content: "size_tooltip_description",
+      },
+      {
+        type: "ul",
+        items: ["size_tooltip_content_1", "size_tooltip_content_2"],
+      },
+    ],
+  },
 };
