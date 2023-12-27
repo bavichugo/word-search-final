@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React from "react";
 
 interface Option {
   value: string;
@@ -8,22 +8,15 @@ interface Option {
 interface SelectProps {
   options: Option[];
   onChange: (selectedValue: string) => void;
+  value: string;
 }
 
-const Select: React.FC<SelectProps> = ({ options, onChange }) => {
-  const [selectedValue, setSelectedValue] = useState<string>('');
-
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = e.target.value;
-    setSelectedValue(newValue);
-    onChange(newValue);
-  };
-
+const Select: React.FC<SelectProps> = ({ options, onChange, value }) => {
   return (
     <select
       className="bg-transparent border border-[#29C9E8] rounded-lg p-1"
-      value={selectedValue}
-      onChange={handleSelectChange}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
     >
       {options.map((option) => (
         <option key={option.value} value={option.value}>

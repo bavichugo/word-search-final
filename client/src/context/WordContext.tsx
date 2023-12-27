@@ -14,6 +14,7 @@ import { api_url, lastWord } from "../helper/helper_functions";
 
 interface AppContextType {
   words: Record<number, string[]>;
+  language: string;
   setLanguage: (language: string) => void;
   fetchInitialWords: () => void;
   resetFilter: () => void;
@@ -27,6 +28,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType>({
   words: {},
+  language: "",
   setLanguage: () => {},
   fetchInitialWords: () => {},
   resetFilter: () => {},
@@ -35,7 +37,7 @@ const AppContext = createContext<AppContextType>({
   filterState: defaultFilterState,
   fetchNextWords: () => {},
   previousPage: () => {},
-  page: 0
+  page: 0,
 });
 
 export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -48,6 +50,18 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
   const filterState = useFilter();
   const { i18n } = useTranslation();
 
+  // Setting language and isTipsOn intial values based
+  // on previous user selection
+  useEffect(() => {
+    if (localStorage.getItem("language")) {
+      setLanguage(JSON.parse(localStorage.getItem("language")!));
+    }
+
+    if (localStorage.getItem("isTipsOn")) {
+      setIsTipsOn(JSON.parse(localStorage.getItem("isTipsOn")!));
+    }
+  }, []);
+
   useEffect(() => {
     if (language === "PORTUGUESE") {
       i18n.changeLanguage("pt");
@@ -57,8 +71,8 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
   }, [language]);
 
   const previousPage = () => {
-    setPage(p => p - 1);
-  }
+    setPage((p) => p - 1);
+  };
 
   const fetchInitialWords = async () => {
     try {
@@ -81,7 +95,9 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
 
   const fetchNextWords = async () => {
     try {
-      const response = await fetch(api_url(language, filterState.filter, lastWord(words)));
+      const response = await fetch(
+        api_url(language, filterState.filter, lastWord(words))
+      );
 
       if (!response.ok) {
         throw new Error("Request failed");
@@ -89,7 +105,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
 
       const data = await response.json();
       const newPage = Object.keys(words).length;
-      setWords({...words, [newPage]: data});
+      setWords({ ...words, [newPage]: data });
       setPage(newPage);
     } catch (error) {
       if (error instanceof Error) {
@@ -108,6 +124,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
     <AppContext.Provider
       value={{
         words,
+        language,
         setLanguage,
         fetchInitialWords,
         resetFilter,
@@ -116,7 +133,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
         filterState,
         fetchNextWords,
         previousPage,
-        page
+        page,
       }}
     >
       {children}

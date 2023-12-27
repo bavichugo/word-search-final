@@ -49,7 +49,4 @@ const WordDisplay = () => {
   );
 };
 
-// TODO: Add translations in portuguese
-// TODO: fix console errors
-
 export default WordDisplay;

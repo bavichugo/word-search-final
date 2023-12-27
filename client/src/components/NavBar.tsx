@@ -1,11 +1,10 @@
-import { useState } from "react";
 import Toggle from "./Toggle";
 import Select from "./Select";
 import { WordContext } from "../context/WordContext";
 import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
-  const { setLanguage, isTipsOn, setIsTipsOn } = WordContext();
+  const { setLanguage, language, isTipsOn, setIsTipsOn } = WordContext();
   const { t } = useTranslation();
 
   const selectOptions = [
@@ -13,11 +12,13 @@ const NavBar = () => {
     { value: "PORTUGUESE", i18nlanguage: "pt", label: "🇧🇷" },
   ];
 
-  const handleToggle = (value: boolean) => {
+  const handleToggleTips = (value: boolean) => {
+    localStorage.setItem('isTipsOn', JSON.stringify(value));
     setIsTipsOn(value);
   };
 
-  const handleSelect = (selectedValue: string) => {
+  const handleSelectLanguage = (selectedValue: string) => {
+    localStorage.setItem('language', JSON.stringify(selectedValue));
     setLanguage(selectedValue);
   };
 
@@ -27,11 +28,11 @@ const NavBar = () => {
       <div className="flex gap-2 sm:gap-4">
         <div className="flex gap-2 sm:gap-4 items-center">
           <span>{t('tips')}</span>
-          <Toggle onToggle={handleToggle} initialState={isTipsOn} />
+          <Toggle onToggle={handleToggleTips} value={isTipsOn} />
         </div>
         <div className="flex gap-2 sm:gap-4 items-center">
           <span>{t('language')}</span>
-          <Select options={selectOptions} onChange={handleSelect} />
+          <Select value={language} options={selectOptions} onChange={handleSelectLanguage} />
         </div>
       </div>
     </div>
