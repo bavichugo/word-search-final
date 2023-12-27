@@ -7,7 +7,41 @@ export type IFilter = {
   endsWith?: string;
   pattern?: string;
   size?: string;
+};
+
+export interface IFilterState {
+  filter: IFilter;
+  letters: string;
+  setLetters: (value: string) => void;
+  absentLetters: string;
+  setAbsentLetters: (value: string) => void;
+  startsWith: string;
+  setStartsWith: (value: string) => void;
+  endsWith: string;
+  setEndsWith: (value: string) => void;
+  pattern: string;
+  setPattern: (value: string) => void;
+  size: string;
+  setSize: (value: string) => void;
+  resetFilter: () => void;
 }
+
+export const defaultFilterState: IFilterState = {
+  filter: {},
+  letters: "",
+  setLetters: () => {},
+  absentLetters: "",
+  setAbsentLetters: () => {},
+  startsWith: "",
+  setStartsWith: () => {},
+  endsWith: "",
+  setEndsWith: () => {},
+  pattern: "",
+  setPattern: () => {},
+  size: "",
+  setSize: () => {},
+  resetFilter: () => {}
+};
 
 const useFilter = () => {
   const [letters, setLetters] = useState<string>("");

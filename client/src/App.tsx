@@ -3,6 +3,7 @@ import WordDisplay from "./components/WordDisplay";
 import WordFilter from "./components/WordFilter";
 import { WordContext } from "./context/WordContext";
 import { useTranslation } from "react-i18next";
+import { isEmptyObject } from "./helper/helper_functions";
 
 const App = () => {
   const { words } = WordContext();
@@ -13,7 +14,7 @@ const App = () => {
       <NavBar />
       <span className="text-lg">{t('use_the_filters')}</span>
       <WordFilter />
-      {!!words.length && <WordDisplay />}
+      {!isEmptyObject(words) && <WordDisplay />}
     </div>
   );
 }

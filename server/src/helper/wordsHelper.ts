@@ -70,9 +70,13 @@ const filterWords = async (language: string | undefined, filter: IFilter, lastWo
 
     // Filter words
     for await (const l of rl) {
-      if (l === normalizedLastWord) skip = false;
+      // Skipping words until after the lastWord passed
+      if (l === normalizedLastWord) {
+        skip = false;
+        continue;
+      }
+
       if (skip) continue;
-      
       const line = normalizeString(l);
       if (filteredWords.length === 100) break;
       if (size && line.length !== +size) continue;

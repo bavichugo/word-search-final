@@ -1,18 +1,17 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { WordContext } from "../context/WordContext";
-import useFilter from "../hooks/useFilter";
 import { useTranslation } from "react-i18next";
 import { TOOLTIP_CONTENT } from "../data/tooltipContent";
+import { isEmptyObject } from "../helper/helper_functions";
 
 const WordFilter = () => {
-  const { fetchWords, resetFilter, words } = WordContext();
+  const { fetchInitialWords, resetFilter, words, filterState } = WordContext();
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
-  const filterState = useFilter();
   const { t } = useTranslation();
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchWords(filterState.filter);
+    fetchInitialWords();
   };
 
   const onResetHandler = () => {
@@ -84,7 +83,7 @@ const WordFilter = () => {
           {t("search_filter")}
         </button>
       </form>
-      {!!words.length && (
+      {!isEmptyObject(words) && (
         <button
           onClick={onResetHandler}
           className="bg-[#29C9E8] hover:bg-[#29c8e8c6] text-[#111827] w-fit rounded-full px-6 py-1"

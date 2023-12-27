@@ -5,35 +5,49 @@ import {
   useEffect,
   useState,
 } from "react";
-import { IFilter } from "../hooks/useFilter";
+import useFilter, {
+  IFilterState,
+  defaultFilterState,
+} from "../hooks/useFilter";
 import { useTranslation } from "react-i18next";
+import { api_url, lastWord } from "../helper/helper_functions";
 
 interface AppContextType {
-  words: string[];
+  words: Record<number, string[]>;
   setLanguage: (language: string) => void;
-  fetchWords: (filterObj: IFilter) => void;
+  fetchInitialWords: () => void;
   resetFilter: () => void;
   isTipsOn: boolean;
   setIsTipsOn: (value: boolean) => void;
+  filterState: IFilterState;
+  fetchNextWords: () => void;
+  previousPage: () => void;
+  page: number;
 }
 
 const AppContext = createContext<AppContextType>({
-  words: [],
+  words: {},
   setLanguage: () => {},
-  fetchWords: () => {},
+  fetchInitialWords: () => {},
   resetFilter: () => {},
   isTipsOn: true,
-  setIsTipsOn: () => {}
+  setIsTipsOn: () => {},
+  filterState: defaultFilterState,
+  fetchNextWords: () => {},
+  previousPage: () => {},
+  page: 0
 });
 
 export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [language, setLanguage] = useState<string>("ENGLISH");
-  const [words, setWords] = useState<string[]>([]);
+  const [words, setWords] = useState<Record<number, string[]>>({});
   const [isTipsOn, setIsTipsOn] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(0);
+  const filterState = useFilter();
   const { i18n } = useTranslation();
-  
+
   useEffect(() => {
     if (language === "PORTUGUESE") {
       i18n.changeLanguage("pt");
@@ -42,24 +56,41 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, [language]);
 
-  const fetchWords = async (filterObj: IFilter) => {
+  const previousPage = () => {
+    setPage(p => p - 1);
+  }
+
+  const fetchInitialWords = async () => {
     try {
-      let filter: string = "";
-
-      for (const [key, value] of Object.entries(filterObj)) {
-        filter += `&${key}=${value}`;
-      }
-
-      const response = await fetch(
-        `http://localhost:3000/api/words?language=${language}${filter}`
-      );
+      const response = await fetch(api_url(language, filterState.filter));
 
       if (!response.ok) {
         throw new Error("Request failed");
       }
 
       const data = await response.json();
-      setWords(data);
+      setWords({ 0: data });
+      setPage(0);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+      console.log(error);
+    }
+  };
+
+  const fetchNextWords = async () => {
+    try {
+      const response = await fetch(api_url(language, filterState.filter, lastWord(words)));
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const data = await response.json();
+      const newPage = Object.keys(words).length;
+      setWords({...words, [newPage]: data});
+      setPage(newPage);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
@@ -77,10 +108,14 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         words,
         setLanguage,
-        fetchWords,
+        fetchInitialWords,
         resetFilter,
         isTipsOn,
-        setIsTipsOn
+        setIsTipsOn,
+        filterState,
+        fetchNextWords,
+        previousPage,
+        page
       }}
     >
       {children}
