@@ -2,7 +2,7 @@ import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { WordContext } from "../context/WordContext";
 import { useTranslation } from "react-i18next";
 import { TOOLTIP_CONTENT } from "../data/tooltipContent";
-import { isEmptyObject } from "../helper/helper_functions";
+import { isEmptyObject, uniqueId } from "../helper/helper_functions";
 
 const WordFilter = () => {
   const { fetchInitialWords, resetFilter, words, filterState } = WordContext();
@@ -12,11 +12,6 @@ const WordFilter = () => {
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetchInitialWords();
-  };
-
-  const onResetHandler = () => {
-    filterState.resetFilter();
-    resetFilter();
   };
 
   return (
@@ -85,7 +80,7 @@ const WordFilter = () => {
       </form>
       {!isEmptyObject(words) && (
         <button
-          onClick={onResetHandler}
+          onClick={resetFilter}
           className="bg-[#29C9E8] hover:bg-[#29c8e8c6] text-[#111827] w-fit rounded-full px-6 py-1"
         >
           {t("reset_filter")}
@@ -155,15 +150,15 @@ const FormInput: React.FC<InputProps> = ({
               {TOOLTIP_CONTENT[tooltipType].messages.map((item) => {
                 if (item.type === "ul") {
                   return (
-                    <ul className="list-disc list-inside border-[#29C9E8] border-t-2 border-b-2 w-full">
+                    <ul key={uniqueId()} className="list-disc list-inside border-[#29C9E8] border-t-2 border-b-2 w-full">
                       {item.items?.map((text) => (
-                        <li className="px-2 text-black m-auto">{t(text)}</li>
+                        <li key={uniqueId()} className="px-2 text-black m-auto">{t(text)}</li>
                       ))}
                     </ul>
                   );
                 }
                 // type "span" or any other
-                return <span className="text-black text-center">{t(item.content!)}</span>;
+                return <span key={uniqueId()} className="text-black text-center">{t(item.content!)}</span>;
               })}
             </div>
             <div className="flex justify-between w-full px-2 py-1">

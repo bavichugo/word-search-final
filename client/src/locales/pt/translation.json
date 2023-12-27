@@ -38,5 +38,8 @@
   "pattern_tooltip_content_2": ".ec.. → fecha, tecla",
   "size_tooltip_description": "Encontre palavras que tenham um tamanho específico",
   "size_tooltip_content_1": "4 → acre, eles",
-  "size_tooltip_content_2": "6 → cabelo, defina"
+  "size_tooltip_content_2": "6 → cabelo, defina",
+  "next": "Próximo",
+  "previous": "Anterior",
+  "no_words_found": "Nenhuma Palavra Encontrada 🤔"
 }

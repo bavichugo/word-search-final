@@ -46,3 +46,9 @@ export const lastWord = (obj: Record<number, string[]>): string => {
   const lastObjArr = obj[lastObjNum];
   return lastObjArr[lastObjArr.length - 1];
 };
+
+export const uniqueId = (): string => {
+  const dateString = Date.now().toString(36);
+  const randomness = Math.random().toString(36).substr(2);
+  return dateString + randomness;
+}

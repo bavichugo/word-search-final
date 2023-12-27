@@ -100,6 +100,7 @@ export const WordsContextProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const resetFilter = () => {
+    filterState.resetFilter();
     setWords([]);
   };
 

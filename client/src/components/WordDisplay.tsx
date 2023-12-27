@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { WordContext } from "../context/WordContext";
 import { isEmptyObject } from "../helper/helper_functions";
 
 const WordDisplay = () => {
   const { words, fetchNextWords, page, previousPage } = WordContext();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-4">
@@ -15,7 +17,7 @@ const WordDisplay = () => {
           ))
         ) : (
           <span className="bg-[#24334E] px-4 py-2 rounded-lg">
-            No Words Found 🤔
+            {t('no_words_found')}
           </span>
         )}
       </div>
@@ -28,7 +30,7 @@ const WordDisplay = () => {
             page === 0 ? "bg-[#29c8e87f]" : "bg-[#29C9E8] hover:bg-[#29c8e8c6]"
           } text-[#111827] w-full max-w-[6rem] min-w-fit rounded-full px-6 py-1`}
         >
-          Previous
+          {t('previous')}
         </button>
         <button
           onClick={fetchNextWords}
@@ -40,11 +42,14 @@ const WordDisplay = () => {
               : "bg-[#29C9E8] hover:bg-[#29c8e8c6]"
           } text-[#111827] w-full max-w-[6rem] min-w-fit rounded-full px-6 py-1`}
         >
-          Next
+          {t('next')}
         </button>
       </div>
     </div>
   );
 };
+
+// TODO: Add translations in portuguese
+// TODO: fix console errors
 
 export default WordDisplay;

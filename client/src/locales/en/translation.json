@@ -38,5 +38,8 @@
   "pattern_tooltip_content_2": "s..ay → spray, stray",
   "size_tooltip_description": "Find words that have a specific size",
   "size_tooltip_content_1": "4 → acre, main",
-  "size_tooltip_content_2": "6 → manner, dagger"
+  "size_tooltip_content_2": "6 → manner, dagger",
+  "next": "Next",
+  "previous": "Previous",
+  "no_words_found": "No Words Found 🤔"
 }
