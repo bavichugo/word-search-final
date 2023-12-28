@@ -4,8 +4,8 @@ import filterRouter from "./routes/filterRoutes";
 import cors from "cors";
 
 const options: cors.CorsOptions = {
-  origin: "http://localhost:5173",
-  methods: 'GET',
+  origin: process.env.ORIGIN || "http://localhost:5173",
+  methods: "GET",
 };
 
 dotenv.config();
